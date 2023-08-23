@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNQueens", "MyNQueens\MyNQueens.csproj", "{29A80BCA-ED9D-49DF-B82D-86B1A0688CBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNQueens.Tests", "MyNQueens.Tests\MyNQueens.Tests.csproj", "{43464179-49F4-4C62-A1F7-E11BDF75BDFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29A80BCA-ED9D-49DF-B82D-86B1A0688CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A80BCA-ED9D-49DF-B82D-86B1A0688CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A80BCA-ED9D-49DF-B82D-86B1A0688CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A80BCA-ED9D-49DF-B82D-86B1A0688CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43464179-49F4-4C62-A1F7-E11BDF75BDFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43464179-49F4-4C62-A1F7-E11BDF75BDFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43464179-49F4-4C62-A1F7-E11BDF75BDFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43464179-49F4-4C62-A1F7-E11BDF75BDFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98DF6CA6-2D9B-4557-964F-9B92F97D5D21}
+	EndGlobalSection
+EndGlobal
