@@ -3,32 +3,35 @@ namespace MyNQueens.Tests;
 [TestClass]
 public class UnitTest1
 {
-    private readonly QueenBoard _test;
+    public QueenBoard _test;
     public UnitTest1()
     {
         _test = new QueenBoard();
     }
+
     [TestMethod]
-    public void ICall_WithValidBoard_ReturnTrue()
+    public void ICallSolveNQueens_WithFour_ReturnTrue()
     {
-        IList<IList<string>> board = new List<IList<string>>();
-        IList<string> rowOne = new List<string> { ".", "Q", ".", "." };
-        IList<string> rowTwo = new List<string> { ".", ".", ".", "Q" };
-        IList<string> rowThree = new List<string> { "Q", ".", ".", "." };
-        IList<string> rowFour = new List<string> { ".", ".", "Q", "." };
-        board.Add(rowOne);
-        board.Add(rowTwo);
-        board.Add(rowThree);
-        board.Add(rowFour);
-        var result = _test.Checker(board);
+        _test.SolveNQueens(4);
+    }
+
+    [TestMethod]
+    public void ICallChecker_WithValidBoard_ReturnTrue()
+    {
+        IList<string> boardOne = new List<string> { ".Q..",
+                                                    "...Q",
+                                                    "Q...",
+                                                    "..Q."};
+
+        var result = _test.Checker(boardOne);
         Assert.IsTrue(result);
     }
 
     [TestMethod]
-    public void ICall_WithOne_ReturnSingleQueen()
+    public void ICallSolveNQueens_WithOne_ReturnSingleQueen()
     {
         IList<IList<string>> result = _test.SolveNQueens(1);
-        IList<string> list = new List<string>{"Q"};
+        IList<string> list = new List<string> { "Q" };
         IList<IList<string>> expectedList = new List<IList<string>>();
         expectedList.Add(list);
         var one = result[0][0];
@@ -37,18 +40,57 @@ public class UnitTest1
     }
 
     [TestMethod]
-    public void ICall_WithInvalidBoard_ReturnFalse()
+    public void ICallChecker_WithInvalidRow_ReturnFalse()
     {
         IList<IList<string>> board = new List<IList<string>>();
-        IList<string> rowOne = new List<string> { "Q", ".", ".", "." };
-        IList<string> rowTwo = new List<string> { ".", ".", ".", "Q" };
-        IList<string> rowThree = new List<string> { ".", "Q", ".", "." };
-        IList<string> rowFour = new List<string> { ".", ".", "Q", "." };
-        board.Add(rowOne);
-        board.Add(rowTwo);
-        board.Add(rowThree);
-        board.Add(rowFour);
-        var result = _test.Checker(board);
+        IList<string> boardOne = new List<string> { "Q..Q",
+                                                    "....",
+                                                    ".Q..",
+                                                    "..Q." };
+        var result = _test.Checker(boardOne);
         Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void ICallChecker_WithInvalidColumn_ReturnFalse()
+    {
+        IList<string> boardOne = new List<string> { "Q...",
+                                                    "Q...",
+                                                    "...Q",
+                                                    "Q..." };
+        var result = _test.Checker(boardOne);
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void ICallChecker_WithInvalidDiagonal_ReturnFalse()
+    {
+        IList<string> boardOne = new List<string> { "Q...",
+                                                    ".Q..",
+                                                    "..Q.",
+                                                    "...Q" };
+        var result = _test.Checker(boardOne);
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void ICallBoardMaker_WithFour_ReturnEmptyFourByFour()
+    {
+        IList<string> board = new List<string> { "....",
+                                                 "....",
+                                                 "....",
+                                                 "...."};
+        var result = _test.BoardMaker(4);
+        Assert.IsTrue(board.SequenceEqual(result));
+    }
+
+    [TestMethod]
+    public void ICallQueenPlacer_LetsSeeWhatHappens()
+    {
+        IList<string> board = new List<string> { "....",
+                                                 "....",
+                                                 "....",
+                                                 "...."};
+        _test.QueenPlacer(board, 0, 0);
     }
 }

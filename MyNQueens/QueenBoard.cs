@@ -1,7 +1,10 @@
-﻿namespace MyNQueens;
+﻿using System.Text;
+
+namespace MyNQueens;
 public class QueenBoard
 {
     public IList<IList<string>> result = new List<IList<string>>();
+
     public IList<IList<string>> SolveNQueens(int n)
     {
         switch (n)
@@ -21,91 +24,76 @@ public class QueenBoard
                 break;
         }
 
+        IList<string> startingBoard = BoardMaker(n);
 
+        QueenPlacer(startingBoard, 0, 0);
 
         return result;
     }
 
-    public void BoardMaker(IList<IList<string>> board)
+    public IList<string> BoardMaker(int n)
     {
+        IList<string> board = new List<string>();
 
+        foreach (int i in Enumerable.Range(1, n))
+        {
+            string row = "";
+
+            foreach (int j in Enumerable.Range(1, n))
+            {
+                row += ".";
+            }
+
+            board.Add(row);
+        }
+
+        return board;
     }
 
-    public bool Checker(IList<IList<string>> board)
+    public void QueenPlacer(IList<string> board, int columnIndex, int rowIndex)
     {
-        //check horizontal
-        foreach (IList<string> row in board)
+        while (columnIndex < board.Count)
         {
-            int rowCount = 0;
+            StringBuilder test = new StringBuilder(board[columnIndex]);
+            test[rowIndex] = 'Q';
+            board[columnIndex] = test.ToString();
+            QueenPlacer(board, columnIndex + 1, rowIndex + 1);
+            board[columnIndex].Replace('Q', '.');
+            columnIndex++;
+            rowIndex++;
+        }
 
-            foreach (string s in row)
-            {
-                if (s == "Q")
-                {
-                    rowCount++;
-                }
-                if (rowCount > 1)
-                {
-                    return false;
-                }
-            }
-            
-        }
-        //check vertical
-        for (int i = 0; i < board.Count; i++)
+        if (Checker(board))
         {
-            for (int j = 0; j < board[i].Count; j++)
-            {
-                if (board[i][j] == "Q")
-                {
-                    int counter = i + 1;
-                    while (counter < board.Count)
-                    {
-                        if (board[counter][j] == "Q")
-                        {
-                            return false;
-                        }
-                        counter++;
-                    }
-                }
-            }
+            result.Add(board);
         }
-        //check diagonal
-        for (int i = 0; i < board.Count; i++)
-        {
-            for (int j = 0; j < board[i].Count; j++)
-            {
-                if (board[i][j] =="Q")
-                {
-                    int counterI = i;
-                    int counterJ = j;
-                    int reverseI = i;
-                    int reverseJ = j;
-                    while (reverseI > 0 || reverseJ > 0 || counterI < board.Count || counterJ < board[i].Count)
-                    {
-                        reverseI--;
-                        reverseJ--;
-                        counterI++;
-                        counterJ++;
-                        if (reverseI >= 0 && reverseJ >= 0)
-                        {
-                            if (board[reverseI][reverseJ] == "Q")
-                            {
-                                return false;
-                            }
-                        }
-                        if (counterI < board.Count && counterJ < board[i].Count)
-                        {
-                            if (board[counterI][counterJ] == "Q")
-                            {
-                                return false;
-                            }
-                        }
-                    }
+    }
 
-                }
+    public bool Checker(IList<string> board)
+    {
+        //check rows
+
+        foreach (string row in board)
+        {
+            var indexOne = row.IndexOf('Q');
+            var indexTwo = row.LastIndexOf('Q');
+            if (indexOne != indexTwo)
+            {
+                return false;
             }
         }
+
+        //check columns
+        var hashset = new HashSet<string>();
+        foreach (string row in board)
+        {
+            if (!hashset.Add(row))
+            {
+                return false;
+            }
+        }
+
+        //DIAGONAL MATTERS AND YOU HAVE TO FIX IT, ERIC
 
         return true;
     }

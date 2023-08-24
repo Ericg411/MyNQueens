@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyNQueens
+﻿namespace MyNQueens
 {
     internal class Program
     {
