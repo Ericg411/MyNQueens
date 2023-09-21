@@ -65,6 +65,7 @@ public class QueenBoard
 
         if (Checker(board))
         {
+            
             result.Add(board);
         }
     }
@@ -77,7 +78,7 @@ public class QueenBoard
         {
             var indexOne = row.IndexOf('Q');
             var indexTwo = row.LastIndexOf('Q');
-            if (indexOne != indexTwo)
+            if (indexOne != indexTwo || indexOne == -1)
             {
                 return false;
             }
@@ -97,6 +98,10 @@ public class QueenBoard
         for (int i = 0; i < board.Count; i++)
         {
             var qIndex = board[i].IndexOf('Q');
+            if (qIndex == -1)
+            {
+                return false;
+            }
 
             if (i == 0)
             {
