@@ -71,6 +71,27 @@ public class UnitTest1
                                                     "...Q" };
         var result = _test.Checker(boardOne);
         Assert.IsFalse(result);
+    } 
+    
+    [TestMethod]
+    public void ICallChecker_WithInvalidDiagonalTwo_ReturnFalse()
+    {
+        IList<string> boardOne = new List<string> { "...Q",
+                                                    "..Q.",
+                                                    ".Q..",
+                                                    "Q..." };
+        var result = _test.Checker(boardOne);
+        Assert.IsFalse(result);
+    }
+    [TestMethod]
+    public void ICallChecker_WithNothing_ReturnFalse()
+    {
+        IList<string> boardOne = new List<string> { "....",
+                                                    "....",
+                                                    "....",
+                                                    "...." };
+        var result = _test.Checker(boardOne);
+        Assert.IsFalse(result);
     }
 
     [TestMethod]
@@ -92,5 +113,6 @@ public class UnitTest1
                                                  "....",
                                                  "...."};
         _test.QueenPlacer(board, 0, 0);
+        Assert.IsTrue(_test.result.Any());
     }
 }

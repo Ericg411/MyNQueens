@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 
 namespace MyNQueens;
 public class QueenBoard
@@ -13,13 +14,10 @@ public class QueenBoard
                 IList<string> list = new List<string> { "Q" };
                 result.Add(list);
                 return result;
-                break;
             case 2:
                 return result;
-                break;
             case 3:
                 return result;
-                break;
             default:
                 break;
         }
@@ -52,15 +50,17 @@ public class QueenBoard
 
     public void QueenPlacer(IList<string> board, int columnIndex, int rowIndex)
     {
-        while (columnIndex < board.Count)
+        while (columnIndex < board.Count && rowIndex < board[columnIndex].Length)
         {
-            StringBuilder test = new StringBuilder(board[columnIndex]);
-            test[rowIndex] = 'Q';
-            board[columnIndex] = test.ToString();
-            QueenPlacer(board, columnIndex + 1, rowIndex + 1);
-            board[columnIndex].Replace('Q', '.');
+            for (int i = rowIndex; i < board[columnIndex].Length; i++)
+            {
+                StringBuilder editColumn = new StringBuilder(board[columnIndex]);
+                editColumn[i] = 'Q';
+                board[columnIndex] = editColumn.ToString();
+                QueenPlacer(board, columnIndex + 1, 0);
+                board[columnIndex] = board[columnIndex].Replace('Q', '.');
+            }
             columnIndex++;
-            rowIndex++;
         }
 
         if (Checker(board))
@@ -93,8 +93,37 @@ public class QueenBoard
             }
         }
 
-        //DIAGONAL MATTERS AND YOU HAVE TO FIX IT, ERIC
+        //check diagonal
+        for (int i = 0; i < board.Count; i++)
+        {
+            var qIndex = board[i].IndexOf('Q');
 
+            if (i == 0)
+            {
+                int modifier = 1;
+                int currentI = i + 1;
+                while (currentI <= board.Count - 1)
+                {
+                    if (qIndex + modifier <= board.Count - 1)
+                    {
+                       if (board[currentI][qIndex + modifier] == 'Q')
+                        {
+                            return false;
+                        }
+                    }
+                    if (qIndex - modifier >= 0)
+                    {
+                        if (board[currentI][qIndex - modifier] == 'Q')
+                        {
+                            return false;
+                        }
+                    }
+                    currentI++;
+                    modifier++;
+                }
+
+            }
+        }
         return true;
     }
 }
