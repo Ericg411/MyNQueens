@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Text;
+﻿using System.Text;
 
 namespace MyNQueens;
 public class QueenBoard
@@ -65,8 +64,8 @@ public class QueenBoard
 
         if (Checker(board))
         {
-            
-            result.Add(board);
+            var boardCopy = new List<string>(board);
+            result.Add(boardCopy);
         }
     }
 
@@ -103,31 +102,28 @@ public class QueenBoard
                 return false;
             }
 
-            if (i == 0)
+            int modifier = 1;
+            int currentI = i + 1;
+            while (currentI <= board.Count - 1)
             {
-                int modifier = 1;
-                int currentI = i + 1;
-                while (currentI <= board.Count - 1)
+                if (qIndex + modifier <= board.Count - 1)
                 {
-                    if (qIndex + modifier <= board.Count - 1)
+                    if (board[currentI][qIndex + modifier] == 'Q')
                     {
-                       if (board[currentI][qIndex + modifier] == 'Q')
-                        {
-                            return false;
-                        }
+                        return false;
                     }
-                    if (qIndex - modifier >= 0)
-                    {
-                        if (board[currentI][qIndex - modifier] == 'Q')
-                        {
-                            return false;
-                        }
-                    }
-                    currentI++;
-                    modifier++;
                 }
-
+                if (qIndex - modifier >= 0)
+                {
+                    if (board[currentI][qIndex - modifier] == 'Q')
+                    {
+                        return false;
+                    }
+                }
+                currentI++;
+                modifier++;
             }
+
         }
         return true;
     }
